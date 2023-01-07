@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,7 @@ class _SongsTabState extends State<SongsTab> {
   String currentSong = '';
   int currentIndex = 0;
   bool isPlayerVisible = false;
+  var box = Hive.box('theme');
 
   void _changePlayerVisbility() {
     setState(() {
@@ -175,15 +177,57 @@ class _SongsTabState extends State<SongsTab> {
                           //   },
                           // ));
 
-                          Get.to(TealMusicPlayer(
-                            songs: songs,
-                            currentindex: index,
-                            updatedIndex: (updatedIndex) {
-                              setState(() {
-                                currentIndex == updatedIndex;
-                              });
-                            },
-                          ));
+                          if (box.get("theme") == 1) {
+                            Get.to(TealMusicPlayer(
+                              songs: songs,
+                              currentindex: index,
+                              updatedIndex: (updatedIndex) {
+                                setState(() {
+                                  currentIndex == updatedIndex;
+                                });
+                              },
+                            ));
+                          } else if ((box.get("theme") == 2)) {
+                            Get.to(PurpleMusicPlayer(
+                              songs: songs,
+                              currentindex: index,
+                              updatedIndex: (updatedIndex) {
+                                setState(() {
+                                  currentIndex == updatedIndex;
+                                });
+                              },
+                            ));
+                          } else if ((box.get("theme") == 3)) {
+                            Get.to(OrangeMusicPlayer(
+                              songs: songs,
+                              currentindex: index,
+                              updatedIndex: (updatedIndex) {
+                                setState(() {
+                                  currentIndex == updatedIndex;
+                                });
+                              },
+                            ));
+                          } else if ((box.get("theme") == 4)) {
+                            Get.to(BlackMusicPlayer(
+                              songs: songs,
+                              currentindex: index,
+                              updatedIndex: (updatedIndex) {
+                                setState(() {
+                                  currentIndex == updatedIndex;
+                                });
+                              },
+                            ));
+                          } else {
+                            Get.to(BlackMusicPlayer(
+                              songs: songs,
+                              currentindex: index,
+                              updatedIndex: (updatedIndex) {
+                                setState(() {
+                                  currentIndex == updatedIndex;
+                                });
+                              },
+                            ));
+                          }
                         },
                         child: SongsRowWidget(
                           song: item.data![index],

@@ -6,6 +6,7 @@ import '../music/player/black_music_player.dart';
 import '../music/player/orange_music_player.dart';
 import '../music/player/purple_music_player.dart';
 import '../music/player/teal_music_player.dart';
+import 'Music_Theme/theme.dart';
 
 class All_themes extends StatefulWidget {
   const All_themes({Key? key}) : super(key: key);
@@ -45,6 +46,11 @@ class _All_themesState extends State<All_themes> {
                   children: [
                     InkWell(
                       onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MusicThemePage(),
+                            ));
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(

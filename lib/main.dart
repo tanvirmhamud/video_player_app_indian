@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player_app/features/video-player-app/presentation/pages/navbar_home.dart';
 import 'package:video_player_app/features/video-player-app/provider/gallery_videos_provider.dart';
@@ -12,7 +14,12 @@ import 'features/video-player-app/provider/music_album_provider.dart';
 import 'features/video-player-app/provider/tabbrowser.dart';
 import 'features/video-player-app/provider/youtube_videos_provider.dart';
 
-void main() {
+void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  final dir = await getApplicationDocumentsDirectory();
+  await Hive.openBox("theme");
+  Hive.init(dir.path);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => PlayListprovider(),
