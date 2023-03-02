@@ -10,6 +10,7 @@ import 'package:video_player_app/features/video-player-app/provider/music_artist
 import 'package:video_player_app/features/video-player-app/provider/music_search_provider.dart';
 import 'package:video_player_app/features/video-player-app/provider/music_playlist_provider.dart';
 import 'package:video_player_app/features/video-player-app/provider/recent_songs_provider.dart';
+import 'features/video-player-app/provider/download.dart';
 import 'features/video-player-app/provider/music_album_provider.dart';
 import 'features/video-player-app/provider/tabbrowser.dart';
 import 'features/video-player-app/provider/youtube_videos_provider.dart';
@@ -48,6 +49,7 @@ void main() async {
     ChangeNotifierProvider(
       create: (context) => Providertabbrowse(),
     ),
+    ChangeNotifierProvider(create: (context) => Dwnloadprovider()),
   ], child: const MyApp()));
 }
 

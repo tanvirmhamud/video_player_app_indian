@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player_app/Controller/theme.dart';
 
 import 'package:video_player_app/features/video-player-app/presentation/Utils/colors.dart';
 import 'package:video_player_app/features/video-player-app/presentation/Utils/dimenstion.dart';
@@ -97,59 +99,64 @@ class _MusicHomePageState extends State<MusicHomePage> {
                 ]),
                 child: Consumer<MusicSearchProvider>(
                     builder: (context, provider, child) {
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (provider.getSearchActive)
-                          Expanded(
-                            child: TextField(
-                              cursorColor: AppColors.cursorColor,
-                              decoration: InputDecoration(
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 2,
-                                      color: AppColors.underlineBorder),
+                  return GetBuilder<ThemeController>(builder: (controller) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (provider.getSearchActive)
+                            Expanded(
+                              child: TextField(
+                                cursorColor: AppColors.cursorColor,
+                                decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: AppColors.underlineBorder),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.5,
+                                        color: AppColors.underlineBorder),
+                                  ),
                                 ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1.5,
-                                      color: AppColors.underlineBorder),
-                                ),
+                                onChanged: (value) {
+                                  provider.updateSearchTerm(value);
+                                },
                               ),
-                              onChanged: (value) {
-                                provider.updateSearchTerm(value);
-                              },
+                            ),
+                          if (!provider.getSearchActive)
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.menu,
+                                  color: controller.mainColor,
+                                ),
+                                SizedBox(
+                                  width: Dimensions.height15,
+                                ),
+                                RegularText(
+                                  text: "Music",
+                                  color: controller.mainColor,
+                                  size: Dimensions.font20,
+                                )
+                              ],
+                            ),
+                          // if (!searchActive)
+                          GestureDetector(
+                            onTap: () {
+                              searchProvider.updateSearchActive(
+                                  !provider.getSearchActive);
+                              // setState(() {
+                              // searchActive = !searchActive;
+                              // });
+                            },
+                            child: Icon(
+                              Icons.search,
+                              color: controller.mainColor,
                             ),
                           ),
-                        if (!provider.getSearchActive)
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.menu,
-                                color: AppColors.mainColor,
-                              ),
-                              SizedBox(
-                                width: Dimensions.height15,
-                              ),
-                              RegularText(
-                                text: "Music",
-                                color: AppColors.mainColor,
-                                size: Dimensions.font20,
-                              )
-                            ],
-                          ),
-                        // if (!searchActive)
-                        GestureDetector(
-                          onTap: () {
-                            searchProvider
-                                .updateSearchActive(!provider.getSearchActive);
-                            // setState(() {
-                            // searchActive = !searchActive;
-                            // });
-                          },
-                          child: Icon(Icons.search),
-                        ),
-                      ]);
+                        ]);
+                  });
                 }),
               ),
             ),

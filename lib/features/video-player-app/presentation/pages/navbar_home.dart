@@ -11,6 +11,7 @@ import 'package:video_player_app/features/video-player-app/presentation/pages/si
 import 'package:video_player_app/features/video-player-app/presentation/pages/videos/online_videos/video_page.dart';
 import 'package:video_player_app/features/video-player-app/provider/gallery_videos_provider.dart';
 
+import '../../../../Controller/theme.dart';
 import '../../provider/youtube_videos_provider.dart';
 
 class HomePageNavBar extends StatefulWidget {
@@ -42,9 +43,10 @@ class _HomePageNavBarState extends State<HomePageNavBar> {
 
   @override
   void initState() {
+    Get.put(ThemeController());
     // YoutubeVideoProvider youtubeVideoProvider =
     //     Provider.of<YoutubeVideoProvider>(context, listen: false);
- 
+
     // youtubeVideoProvider.fetchVideos();
     super.initState();
   }
@@ -138,40 +140,42 @@ class IconBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: Dimensions.height5,
-        ),
-        Container(
-          height: Dimensions.height45 - 6,
-          width: Dimensions.height45 - 5,
-          padding: EdgeInsets.all(6),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: selected ? accentColor : Colors.white,
-            shape: BoxShape.circle,
+    return GetBuilder<ThemeController>(builder: (controller) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: Dimensions.height5,
           ),
-          child: Center(
-            child: GestureDetector(
-              onTap: onPressed,
-              child: Image.asset(icon,
-                  color: selected ? Colors.white : Colors.grey),
+          Container(
+            height: Dimensions.height45 - 6,
+            width: Dimensions.height45 - 5,
+            padding: EdgeInsets.all(6),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: selected ? controller.mainColor : Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: GestureDetector(
+                onTap: onPressed,
+                child: Image.asset(icon,
+                    color: selected ? Colors.white : Colors.grey),
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: Dimensions.height10,
-        ),
-        Text(
-          text,
-          style: TextStyle(
-              fontSize: Dimensions.height10 + 2,
-              height: .1,
-              color: selected ? accentColor : Colors.grey),
-        )
-      ],
-    );
+          SizedBox(
+            height: Dimensions.height10,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+                fontSize: Dimensions.height10 + 2,
+                height: .1,
+                color: selected ? controller.mainColor : Colors.grey),
+          )
+        ],
+      );
+    });
   }
 }

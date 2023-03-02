@@ -16,7 +16,7 @@ class DownloadVideoPage extends StatefulWidget {
 }
 
 class _DownloadVideoPageState extends State<DownloadVideoPage> {
-  List<String> _menuOpetionsList = [
+  final List<String> _menuOpetionsList = [
     "For You",
     "All Videos",
     "Film & Animations",

@@ -87,6 +87,10 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+  pod_player: ^0.1.0
+  dio: ^4.0.6
+  downloads_path_provider_28: ^0.1.2
+  open_file_manager: ^0.0.2
  
 
 dev_dependencies:
@@ -99,6 +103,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -7,6 +7,9 @@ import '../../Utils/icons.dart';
 import '../../widgets/bold_text.dart';
 import '../../widgets/regular_text.dart';
 import '../../widgets/square_widget.dart';
+import '../videos/online_videos/better_player.dart';
+import '../videos/online_videos/pod_player.dart';
+import '../videos/online_videos/video_player.dart';
 import 'latest_news.dart';
 
 class NetworkSream extends StatefulWidget {
@@ -55,7 +58,17 @@ class _NetworkSreamState extends State<NetworkSream> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SquareWidget(
-                  onClick: () {},
+                  onClick: () {
+                    if (_searchController.text.isNotEmpty) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlayVideoFromNetwork(
+                              m3U8: _searchController.text,
+                            ),
+                          ));
+                    }
+                  },
                   bgImg: HomeIcons.playTile,
                   title: "Play",
                   iconColor: Colors.transparent,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_file_manager/open_file_manager.dart';
+import 'package:video_player_app/Controller/theme.dart';
 import 'package:video_player_app/features/video-player-app/presentation/pages/drawer.dart';
 import 'package:video_player_app/features/video-player-app/presentation/pages/home/Tools/notification/Notification_page.dart';
 import 'package:video_player_app/features/video-player-app/presentation/pages/home/network_steam.dart';
@@ -13,7 +15,10 @@ import '../../Utils/icons.dart';
 import '../../widgets/news_tile.dart';
 import '../../widgets/regular_text.dart';
 import '../../widgets/square_widget.dart';
+import '../Filemanager/filemanager.dart';
+import '../music/tabs/playlist_tab.dart';
 import '../theme/theme_page.dart';
+import '../videos/online_videos/gallery_videos.dart';
 import 'latest_news.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,13 +38,11 @@ class _HomePageState extends State<HomePage> {
   final List<String> _foldersList = [
     "Whatsapp video saver",
     "PlayList",
-    "Recent Video Added",
     "File Manager"
   ];
   final List<IconData> _iconsList2 = [
-    Icons.whatsapp,
+    Icons.whatshot_outlined,
     Icons.playlist_add,
-    Icons.document_scanner,
     Icons.folder
   ];
   final List<String> _iconsList = [
@@ -57,13 +60,11 @@ class _HomePageState extends State<HomePage> {
   final List<String> _foldersBgImg = [
     HomeIcons.whatsappTile,
     HomeIcons.playlistTile,
-    HomeIcons.recentTile,
     HomeIcons.filemanager,
   ];
   final List<Color?> _colorsList = [
     Color.fromARGB(255, 1, 221, 255),
     Colors.red,
-    Colors.pink,
     Colors.orange
   ];
   final TextEditingController _searchController = TextEditingController();
@@ -80,61 +81,66 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // search bar
-          Center(
-            child: Container(
-              height: Dimensions.height53 + 4,
-              width: Dimensions.width368 + Dimensions.width10,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(Dimensions.width10),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: Offset(0, 3),
-                        color: Colors.grey.withOpacity(.4),
-                        blurRadius: 5)
-                  ]),
-              child: TextFormField(
-                controller: _searchController,
-                style: TextStyle(
-                  fontSize: Dimensions.font16 - 4,
-                ),
-                decoration: InputDecoration(
-                  // contentPadding: EdgeInsets.all(10),
-                  hintText: "Search Videos and news",
-                  // label: Text("hellow"),
-                  hintStyle: TextStyle(color: Colors.black),
+          GetBuilder<ThemeController>(builder: (controller) {
+            return Center(
+              child: Container(
+                height: Dimensions.height53 + 4,
+                width: Dimensions.width368 + Dimensions.width10,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(Dimensions.width10),
+                    boxShadow: [
+                      BoxShadow(
+                          offset: Offset(0, 3),
+                          color: Colors.grey.withOpacity(.4),
+                          blurRadius: 5)
+                    ]),
+                child: TextFormField(
+                  controller: _searchController,
+                  style: TextStyle(
+                    fontSize: Dimensions.font16 - 4,
+                  ),
+                  decoration: InputDecoration(
+                    // contentPadding: EdgeInsets.all(10),
+                    hintText: "Search Videos and news",
+                    // label: Text("hellow"),
+                    hintStyle: TextStyle(color: Colors.black),
 
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(Dimensions.width20),
-                  suffixIcon: Padding(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(Dimensions.width20),
+                    suffixIcon: Padding(
+                        padding: EdgeInsets.only(
+                            left: Dimensions.height10,
+                            right: Dimensions.height10,
+                            top: Dimensions.width15,
+                            bottom: Dimensions.height10),
+                        child: Icon(Icons.search, color: controller.mainColor)),
+
+                    prefixIcon: Padding(
                       padding: EdgeInsets.only(
                           left: Dimensions.height10,
                           right: Dimensions.height10,
                           top: Dimensions.width15,
                           bottom: Dimensions.height10),
-                      child: Icon(Icons.search, color: Colors.grey)),
-
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(
-                        left: Dimensions.height10,
-                        right: Dimensions.height10,
-                        top: Dimensions.width15,
-                        bottom: Dimensions.height10),
-                    child: GestureDetector(
-                      onTap: () {
-                        _key.currentState!.openDrawer();
-                      },
-                      child: SizedBox(
-                        height: 10,
-                        width: 10,
-                        child: Image.asset(HomeIcons.menuBar),
+                      child: GestureDetector(
+                        onTap: () {
+                          _key.currentState!.openDrawer();
+                        },
+                        child: SizedBox(
+                          height: 10,
+                          width: 10,
+                          child: Image.asset(
+                            HomeIcons.menuBar,
+                            color: controller.mainColor,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          }),
           SizedBox(
             height: Dimensions.width20,
           ),
@@ -269,13 +275,24 @@ class _HomePageState extends State<HomePage> {
             width: Dimensions.screenWidth,
             child: ListView.builder(
                 padding: EdgeInsets.all(0),
-                itemCount: 4,
+                itemCount: 3,
                 scrollDirection: Axis.vertical,
                 itemBuilder: ((context, index) {
                   return GestureDetector(
                     onTap: () {
                       if (index == 0) {
                         Get.to(WhatsAppStatus());
+                      } else if (index == 1) {
+                        Get.to(Scaffold(
+                          appBar: AppBar(
+                            title: Text("Playlist"),
+                          ),
+                          body: PlayListTab(),
+                        ));
+                      } else if (index == 3) {
+                        Get.to(DeviceVideoScreen());
+                        // Get.to(FileManagerPage());
+                        // openFileManager();
                       }
                     },
                     child: Padding(

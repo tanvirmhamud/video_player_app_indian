@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:video_player_app/Controller/theme.dart';
 import 'package:video_player_app/features/video-player-app/presentation/Utils/dimenstion.dart';
 import 'package:video_player_app/features/video-player-app/presentation/Utils/icons.dart';
 import 'package:video_player_app/features/video-player-app/presentation/pages/home/home_screen.dart';
@@ -125,37 +127,39 @@ class IconBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: Dimensions.height45 - 6,
-          width: Dimensions.height45 - 5,
-          padding: EdgeInsets.all(5),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: selected ? accentColor : Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: GestureDetector(
-              onTap: onPressed,
-              child: Image.asset(icon,
-                  color: selected ? Colors.white : Colors.grey),
+    return GetBuilder<ThemeController>(builder: (controller) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: Dimensions.height45 - 6,
+            width: Dimensions.height45 - 5,
+            padding: EdgeInsets.all(5),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: selected ? controller.mainColor : Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: GestureDetector(
+                onTap: onPressed,
+                child: Image.asset(icon,
+                    color: selected ? Colors.white : Colors.grey),
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: Dimensions.height10,
-        ),
-        Text(
-          text,
-          style: TextStyle(
-              fontSize: Dimensions.height10 + 2,
-              height: .1,
-              color: selected ? accentColor : Colors.grey),
-        )
-      ],
-    );
+          SizedBox(
+            height: Dimensions.height10,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+                fontSize: Dimensions.height10 + 2,
+                height: .1,
+                color: selected ? controller.mainColor : Colors.grey),
+          )
+        ],
+      );
+    });
   }
 }

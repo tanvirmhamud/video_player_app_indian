@@ -80,10 +80,10 @@ class DeviceVideoScreenState extends State<DeviceVideoScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
-                              // Get.to(BetterPlayerView(
-                              //   path: provider.videosPathList[index],
-                              //   index: index,
-                              // ));
+                              Get.to(BetterPlayerView(
+                                path: provider.videosPathList[index],
+                                index: index,
+                              ));
                             },
                             child: Column(
                               children: [

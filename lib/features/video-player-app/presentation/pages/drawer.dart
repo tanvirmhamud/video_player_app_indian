@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_file_manager/open_file_manager.dart';
 
 import 'package:video_player_app/features/video-player-app/presentation/Utils/colors.dart';
 import 'package:video_player_app/features/video-player-app/presentation/Utils/icons.dart';
@@ -14,17 +15,17 @@ import 'package:video_player_app/features/video-player-app/presentation/pages/si
 import 'package:video_player_app/features/video-player-app/presentation/pages/theme/theme_page.dart';
 import 'package:video_player_app/features/video-player-app/presentation/pages/videos/download_video.dart';
 import 'package:video_player_app/features/video-player-app/presentation/pages/videos/online_videos/all_videos.dart';
+import 'package:video_player_app/features/video-player-app/presentation/pages/videos/online_videos/gallery_videos.dart';
 import 'package:video_player_app/features/video-player-app/presentation/widgets/bold_text.dart';
 import 'package:video_player_app/features/video-player-app/presentation/widgets/regular_text.dart';
 
 import '../Utils/dimenstion.dart';
+import 'music/music_home_page.dart';
+import 'music/tabs/playlist_tab.dart';
 
 class DrawerBar extends StatelessWidget {
   List<String> _menuTitle = [
     "More Apps",
-    "Mp3 Converter",
-    "Dark Mode",
-    "Widgets",
     "Notification",
     "Me",
     "PlayList",
@@ -36,7 +37,7 @@ class DrawerBar extends StatelessWidget {
     "Music Folder",
     "Photo Albumn",
     "All Photo",
-    "Filder Manager",
+    "File Manager",
     "Stream",
     "Theme",
     "Legal Policy",
@@ -45,9 +46,6 @@ class DrawerBar extends StatelessWidget {
   ];
   List<String> _menuIcons = [
     AppIcons.widgetsRed,
-    MenuIcons.mp3File,
-    MenuIcons.theme,
-    MenuIcons.widget,
     MenuIcons.notification,
     MenuIcons.me,
     MenuIcons.playlist,
@@ -128,9 +126,9 @@ class DrawerBar extends StatelessWidget {
                           ? Get.to(SettingPage())
                           : null;
                       _menuTitle[index] == "Me" ? Get.to(ProfilePage()) : null;
-                      _menuTitle[index] == "Widgets"
-                          ? Get.to(SiteWidgetPage())
-                          : null;
+                      // _menuTitle[index] == "Widgets"
+                      //     ? Get.to(SiteWidgetPage())
+                      //     : null;
                       _menuTitle[index] == "Downloads"
                           ? Get.to(DownloadVideoPage())
                           : null;
@@ -140,14 +138,34 @@ class DrawerBar extends StatelessWidget {
                       _menuTitle[index] == "Notification"
                           ? Get.to(NotificationPage())
                           : null;
-                      // _menuTitle[index] == "All Videos"
-                      //     ? Get.to(AllVideosPage())
-                      //     : null;
+                      _menuTitle[index] == "All Videos"
+                          ? Get.to(AllVideosPage())
+                          : null;
                       _menuTitle[index] == "Online Videos"
                           ? Get.to(AllVideosPage())
                           : null;
                       _menuTitle[index] == "All Photo"
                           ? Get.to(PhotoHomePage())
+                          : null;
+                      _menuTitle[index] == "Music Libaray"
+                          ? Get.to(MusicHomePage())
+                          : null;
+                      _menuTitle[index] == "PlayList"
+                          ? Get.to(Scaffold(
+                              appBar: AppBar(
+                                title: Text("Playlist"),
+                              ),
+                              body: PlayListTab(),
+                            ))
+                          : null;
+                      _menuTitle[index] == "Photo Albumn"
+                          ? Get.to(PhotoHomePage())
+                          : null;
+                      _menuTitle[index] == "File Manager"
+                          ? openFileManager()
+                          : null;
+                      _menuTitle[index] == "Videos Folder"
+                          ? Get.to(DeviceVideoScreen())
                           : null;
                     },
                     child: MenuTileWidget(

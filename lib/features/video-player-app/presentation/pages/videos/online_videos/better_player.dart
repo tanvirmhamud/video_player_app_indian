@@ -11,7 +11,8 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 class BetterPlayerView extends StatefulWidget {
   String path;
   int? index;
-  BetterPlayerView({this.index, required this.path, super.key});
+  final String? videourl;
+  BetterPlayerView({this.index, required this.path, super.key, this.videourl});
 
   @override
   State<BetterPlayerView> createState() => _BetterPlayerViewState();
@@ -60,142 +61,163 @@ class _BetterPlayerViewState extends State<BetterPlayerView> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.index == null
-        ? BetterPlayer.file(
-            fileTempe.path,
-            betterPlayerConfiguration: BetterPlayerConfiguration(
-              expandToFill: false,
-              fit: BoxFit.contain,
-              autoPlay: true,
-            ),
-          )
-        : Scaffold(
+    return widget.videourl != null
+        ? Scaffold(
             body: SafeArea(
               child: Column(
                 children: [
                   BetterPlayer.file(
-                    fileTempe.path,
+                    widget.path,
                     betterPlayerConfiguration: BetterPlayerConfiguration(
                       expandToFill: false,
                       fit: BoxFit.contain,
                       autoPlay: true,
                     ),
                   ),
-                  Consumer<GalleryVideosProvider>(
-                      builder: (context, provider, child) {
-                    return Expanded(
-                        child: Container(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      child: ListView.builder(
-                        // itemCount: provider.videosPathList.length,
-                        itemCount: playList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              // _betterPlayerController.
-                              fileTempe = XFile("/" + playList[index]);
-                              setState(() {});
-                            },
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      FutureBuilder(
-                                        future:
-                                            _generateThumbnail(playList[index]),
-                                        // initialData: InitialData,
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot snapshot) {
-                                          if (snapshot.hasData) {
-                                            if (snapshot.data == 1) {
-                                              return Container(
-                                                height: 60,
-                                                width: 60,
-                                                decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            "assets/video_logo.png"))),
-                                              );
-                                            } else {
-                                              return Container(
-                                                height: 60,
-                                                width: 60,
-                                                decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: MemoryImage(
-                                                          snapshot.data),
-                                                      fit: BoxFit.cover),
-                                                ),
-                                              );
-                                            }
-                                          } else {
-                                            return Container(
-                                              height: 60,
-                                              width: 60,
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          "assets/video_logo.png"))),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                playList[index]
-                                                    .toString()
-                                                    .split("/")
-                                                    .last
-                                                    .split(".mp4")
-                                                    .first
-                                                    .toString(),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              // Spacer(),
-                                              Text(
-                                                playList[index]
-                                                    .toString()
-                                                    .split("/")
-                                                    .elementAt(4)
-                                                    .toString(),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Divider(
-                                    height: 2,
-                                    color: Colors.black,
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ));
-                  })
                 ],
               ),
             ),
-          );
+          )
+        : widget.index == null
+            ? BetterPlayer.file(
+                fileTempe.path,
+                betterPlayerConfiguration: BetterPlayerConfiguration(
+                  expandToFill: false,
+                  fit: BoxFit.contain,
+                  autoPlay: true,
+                ),
+              )
+            : Scaffold(
+                body: SafeArea(
+                  child: Column(
+                    children: [
+                      BetterPlayer.file(
+                        fileTempe.path,
+                        betterPlayerConfiguration: BetterPlayerConfiguration(
+                          expandToFill: false,
+                          fit: BoxFit.contain,
+                          autoPlay: true,
+                        ),
+                      ),
+                      Consumer<GalleryVideosProvider>(
+                          builder: (context, provider, child) {
+                        return Expanded(
+                            child: Container(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          child: ListView.builder(
+                            // itemCount: provider.videosPathList.length,
+                            itemCount: playList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  // _betterPlayerController.
+                                  fileTempe = XFile("/" + playList[index]);
+                                  setState(() {});
+                                },
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          FutureBuilder(
+                                            future: _generateThumbnail(
+                                                playList[index]),
+                                            // initialData: InitialData,
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot snapshot) {
+                                              if (snapshot.hasData) {
+                                                if (snapshot.data == 1) {
+                                                  return Container(
+                                                    height: 60,
+                                                    width: 60,
+                                                    decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: AssetImage(
+                                                                "assets/video_logo.png"))),
+                                                  );
+                                                } else {
+                                                  return Container(
+                                                    height: 60,
+                                                    width: 60,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: MemoryImage(
+                                                              snapshot.data),
+                                                          fit: BoxFit.cover),
+                                                    ),
+                                                  );
+                                                }
+                                              } else {
+                                                return Container(
+                                                  height: 60,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: AssetImage(
+                                                              "assets/video_logo.png"))),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    playList[index]
+                                                        .toString()
+                                                        .split("/")
+                                                        .last
+                                                        .split(".mp4")
+                                                        .first
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  // Spacer(),
+                                                  Text(
+                                                    playList[index]
+                                                        .toString()
+                                                        .split("/")
+                                                        .elementAt(4)
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Divider(
+                                        height: 2,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ));
+                      })
+                    ],
+                  ),
+                ),
+              );
   }
 }

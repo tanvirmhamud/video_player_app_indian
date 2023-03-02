@@ -59,8 +59,8 @@ class _SiteHomePageState extends State<SiteHomePage> {
                         color: Colors.tealAccent),
                     SquareWidget(
                         onClick: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => DownloadsPage()));
-
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DownloadsPage()));
                         },
                         bgImg: AppIcons.rectangleRed,
                         title: "Download",
@@ -69,10 +69,8 @@ class _SiteHomePageState extends State<SiteHomePage> {
                         color: Colors.red),
                     SquareWidget(
                         onClick: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateVideos()));
-
-
-
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PrivateVideos()));
                         },
                         bgImg: AppIcons.rectangleSky,
                         title: "Privacy",
@@ -124,10 +122,10 @@ class _SiteHomePageState extends State<SiteHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         String url = "https://www.youtube.com/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SiteBrowserPage(url: url)));
                       },
                       child: CircularIconWidget(
                         title: "Youtube",
@@ -136,10 +134,10 @@ class _SiteHomePageState extends State<SiteHomePage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         String url = "https://www.instagram.com/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SiteBrowserPage(url: url)));
                       },
                       child: CircularIconWidget(
                         title: "Instagram",
@@ -148,10 +146,10 @@ class _SiteHomePageState extends State<SiteHomePage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         String url = "https://www.facebook.com/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SiteBrowserPage(url: url)));
                       },
                       child: CircularIconWidget(
                         title: "Facebook",
@@ -160,10 +158,10 @@ class _SiteHomePageState extends State<SiteHomePage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         String url = "https://www.whatsapp.com/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SiteBrowserPage(url: url)));
                       },
                       child: CircularIconWidget(
                         title: "Whatsapp",
@@ -187,10 +185,10 @@ class _SiteHomePageState extends State<SiteHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         String url = "https://www.twitter.com/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SiteBrowserPage(url: url)));
                       },
                       child: CircularIconWidget(
                         title: "Twitter",
@@ -199,10 +197,10 @@ class _SiteHomePageState extends State<SiteHomePage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         String url = "https://www.vimeo.com/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SiteBrowserPage(url: url)));
                       },
                       child: CircularIconWidget(
                         title: "Vimeo",
@@ -211,27 +209,15 @@ class _SiteHomePageState extends State<SiteHomePage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         String url = "https://www.twitch.tv/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SiteBrowserPage(url: url)));
                       },
                       child: CircularIconWidget(
                         title: "Twitch",
                         icon: AppIcons.twitch,
                         bgColor: Colors.green,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        String url = "https://www.searchenginejournal.com/social-sharing-sites/261563/";
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SiteBrowserPage(url: url)));
-
-                      },
-                      child: CircularIconWidget(
-                        title: "More",
-                        icon: HomeIcons.moreWidget,
-                        bgColor: AppColors.blueColor,
                       ),
                     ),
                     SizedBox(
@@ -247,9 +233,9 @@ class _SiteHomePageState extends State<SiteHomePage> {
 
               // * Youtube play button
               GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => YoutubeBrowserPage()));
-
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => YoutubeBrowserPage()));
                 },
                 child: Container(
                   height: Dimensions.height70 + 3,
@@ -257,20 +243,21 @@ class _SiteHomePageState extends State<SiteHomePage> {
                   decoration: BoxDecoration(
                       color: AppColors.redColor,
                       borderRadius: BorderRadius.circular(10)),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Image.asset(
-                      AppIcons.youtube,
-                    ),
-                    SizedBox(
-                      width: Dimensions.width20,
-                    ),
-                    BoldText(
-                      text: "Download Youtube Videos now!",
-                      color: Colors.white,
-                      size: Dimensions.font16,
-                    ),
-                  ]),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          AppIcons.youtube,
+                        ),
+                        SizedBox(
+                          width: Dimensions.width20,
+                        ),
+                        BoldText(
+                          text: "Download Youtube Videos now!",
+                          color: Colors.white,
+                          size: Dimensions.font16,
+                        ),
+                      ]),
                 ),
               )
 

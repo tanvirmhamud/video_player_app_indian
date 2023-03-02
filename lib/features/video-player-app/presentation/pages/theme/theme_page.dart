@@ -6,6 +6,7 @@ import '../music/player/black_music_player.dart';
 import '../music/player/orange_music_player.dart';
 import '../music/player/purple_music_player.dart';
 import '../music/player/teal_music_player.dart';
+import 'Flat_Theme/flat_theme.dart';
 import 'Music_Theme/theme.dart';
 
 class All_themes extends StatefulWidget {
@@ -19,7 +20,7 @@ class _All_themesState extends State<All_themes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BigCustomAppBar(
+      appBar: const BigCustomAppBar(
         title: "Themes",
         firstIcon: Icons.abc,
         secondIcon: Icons.abc,
@@ -32,7 +33,7 @@ class _All_themesState extends State<All_themes> {
             Container(
               height: 132,
               decoration: BoxDecoration(
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage('assets/images/playertheme.png'),
                   fit: BoxFit.cover,
                 ),
@@ -49,7 +50,7 @@ class _All_themesState extends State<All_themes> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MusicThemePage(),
+                              builder: (context) => const MusicThemePage(),
                             ));
                         // Navigator.push(
                         //     context,
@@ -104,7 +105,7 @@ class _All_themesState extends State<All_themes> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 'Player Theme',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -112,12 +113,67 @@ class _All_themesState extends State<All_themes> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 '5+ Music player Theme',
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              height: 132,
+              decoration: BoxDecoration(
+                image: const DecorationImage(
+                  image: AssetImage('assets/images/playertheme.png'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 50,
+                ),
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const FlatThemePage(),
+                            ));
+                      },
+                      child: Expanded(
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Flat Theme',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              // const Text(
+                              //   '5+ Music player Theme',
+                              //   style: TextStyle(
+                              //     color: Colors.white,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
